@@ -19,8 +19,7 @@ var task = function (request, callback) {
     s3.getObject({ Bucket: bucket, Key: key }, function (err, data) {
         if (err) callback(null, err.stack);
         else {
-            fs.writeFile(filePath, data.Body);
-
+            // 1. get interesting data
             var metadata = data.Metadata;
 
             var info = {};
@@ -34,6 +33,16 @@ var task = function (request, callback) {
             digests[ 'sha256' ] = helpers.calculateDigest("sha256", data.Body, 'hex');
             digests[ 'sha512' ] = helpers.calculateDigest("sha512", data.Body, 'hex');
 
+            // 2. send response
+            callback(null, {
+                template: 'uploaded.ejs',
+                params: { info: info, digests: digests, metadata: metadata }
+            });
+
+            // 3. write file locally
+            fs.writeFile(filePath, data.Body);
+
+            // 4. store digests in simpledb
             var paramsSimpleDb = {
                 DomainName: 'koszykadi',
                 ItemName: 'key',
@@ -47,17 +56,6 @@ var task = function (request, callback) {
 
             simpledb.putAttributes(paramsSimpleDb, function (err, data) {
                 if (err) callback(null, err.stack);
-
-                else {
-                    callback(null, {
-                        template: 'uploaded.ejs',
-                        params: {
-                            info: info,
-                            digests: digests,
-                            metadata: metadata
-                        }
-                    });
-                }
             });
         }
     });
