@@ -45,7 +45,7 @@ var task = function (request, callback) {
             // 4. store digests in simpledb
             var paramsSimpleDb = {
                 DomainName: 'koszykadi',
-                ItemName: 'key',
+                ItemName: key,
                 Attributes: [
                     { Name: 'md5', Value: digests[ 'md5' ] },
                     { Name: 'sha1', Value: digests[ 'sha1' ] },
