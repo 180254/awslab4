@@ -39,17 +39,20 @@ var task = function(request, callback){
 	s3Form.addField(s3Fields, 'x-amz-meta-my-name', 'Adrian Pedziwiatr');
 	s3Form.addField(s3Fields, 'x-amz-meta-uploaded-by', request.ip);
 
+    // 6. send response
+    callback(null, {template: INDEX_TEMPLATE, params:{fields:s3Fields, bucket:bucketName}});
+
+    // 7. log request in simpledb
     var logText = new Date().toLocaleString() + ' | ' +request.ip;
     var params = {
         DomainName: 'koszykadi',
         ItemName: '___FormAccessLog',
         Attributes: [ { Name: uuid(), Value:logText } ]
     };
+
     simpledb.putAttributes(params, function(err, data) {
         if (err) callback(null, err.stack);
-        else 	callback(null, {template: INDEX_TEMPLATE, params:{fields:s3Fields, bucket:bucketName}});
     });
-
 };
 
 exports.action = task;
