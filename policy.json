@@ -1,8 +1,26 @@
-{	"expiration" : {"day":1},
-	"conditions": [ ["starts-with", "$key", "radek.student/"],
-    				 {"bucket": "lab4-weeia"}, 
-    				 {"acl": "private"},
-    				 {"success_action_redirect": "http://localhost:8080"},   
-    				 ["content-length-range", 0, 1048576]
-    				]   
+{
+  "expiration": {
+    "day": 1
+  },
+  "conditions": [
+    [
+      "starts-with",
+      "$key",
+      "awslab4/"
+    ],
+    {
+      "bucket": "koszykadi"
+    },
+    {
+      "acl": "private"
+    },
+    {
+      "success_action_redirect": "http://127.0.0.1:8080"
+    },
+    [
+      "content-length-range",
+      0,
+      1048576
+    ]
+  ]
 }
