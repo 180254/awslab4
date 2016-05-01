@@ -23,6 +23,10 @@ var task = function(request, callback){
 	//4. get bucket name
 	var bucketName = policyData.conditions[1].bucket;
 
+	//5. add metadata
+	s3Form.addField(s3Fields, 'x-amz-meta-my-name', 'Adrian Pedziwiatr');
+	s3Form.addField(s3Fields, 'x-amz-meta-uploaded-by', request.ip);
+
 	callback(null, {template: INDEX_TEMPLATE, params:{fields:s3Fields, bucket:bucketName}});
 }
 
