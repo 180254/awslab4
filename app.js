@@ -3,8 +3,8 @@ var ACTIONS_FOLDER = "./actions/";
 var ACTIONS_CONFIG_FILE = "actions.json";
 var PORT = 8080;
 
-var policy_dl = require('./policy-dl');
-policy_dl.policy_dl();
+var onStart = require('./onstart');
+onStart.onStart();
 
 var actionsCofig = helpers.readJSONFile(ACTIONS_CONFIG_FILE);
 
