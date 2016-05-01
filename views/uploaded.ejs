@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Example document</title>
+</head>
+<body>
+
+<ul>
+    <% Object.keys(info).forEach(function(key) { %>
+    <li><%= key %>: <%= info[ key ] %></li>
+    <% }); %>
+</ul>
+
+<ul>
+    <% Object.keys(digests).forEach(function(key) { %>
+    <li><%= key %>: <%= digests[ key ] %></li>
+    <% }); %>
+</ul>
+
+<ul>
+    <% Object.keys(metadata).forEach(function(key) { %>
+    <li><%= key %>: <%= metadata[ key ] %></li>
+    <% }); %>
+</ul>
+
+</body>
+</html>

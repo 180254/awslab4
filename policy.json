@@ -4,7 +4,7 @@
     ["starts-with", "$key", "awslab4/"],
     {"bucket": "koszykadi"},
     {"acl": "private"},
-    {"success_action_redirect": "http://127.0.0.1:8080"},
+    {"success_action_redirect": "http://127.0.0.1:8080/uploaded"},
     ["content-length-range", 0, 1048576],
     ["starts-with", "$x-amz-meta-my-name", ""],
     ["starts-with", "$x-amz-meta-uploaded-by", ""]
